@@ -1,0 +1,14 @@
+build/
+*.ptx
+*.cubin
+*.ncu-rep
+*.nsys-rep
+*.sqlite
+__pycache__/
+*.egg-info/
+*.so
+results/*.csv
+!results/sample_bench.csv
+results/*.png
+.pytest_cache/
+.ruff_cache/
