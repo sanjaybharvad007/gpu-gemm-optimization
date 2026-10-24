@@ -1,0 +1,24 @@
+name: gpu
+# Needs a self-hosted runner with an NVIDIA GPU (label `gpu`); run manually from the Actions tab.
+on:
+  workflow_dispatch:
+
+jobs:
+  gpu:
+    runs-on: [self-hosted, gpu]
+    steps:
+      - uses: actions/checkout@v4
+      - run: nvidia-smi
+      - run: cmake -S . -B build && cmake --build build -j
+      - run: cd build && ctest --output-on-failure
+      - run: ./build/validate --k-sweep
+      - run: mkdir -p results && ./build/bench_gemm --sizes 256,512,1024,2048,4096,8192 --csv results/bench.csv
+      - run: ./build/bench_gemm --splitk-sweep
+      - run: ./build/bench_gemm --batched 32 --sizes 256,512
+      - run: pip install matplotlib && python tools/roofline.py results/bench.csv --device "$(nvidia-smi --query-gpu=name --format=csv,noheader | head -1)" --out results/roofline.png
+      - run: python tools/report.py results/bench.csv
+      - name: torch extension tests (if torch is installed)
+        run: |
+          if python -c "import torch" 2>/dev/null; then pip install -e python/ --no-build-isolation && pytest -q tests/python/test_torch_ext.py; else echo "torch not installed; skipping"; fi
+      - uses: actions/upload-artifact@v4
+        with: { name: results, path: results/ }
