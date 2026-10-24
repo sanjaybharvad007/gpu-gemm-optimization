@@ -1,9 +1,9 @@
-# cuda-gemm-optimization
+# gpu-gemm-optimization
 
 **A GEMM written nine times, from a naive triple loop to `mma.sync` Tensor-Core PTX with `ldmatrix` and a multi-stage `cp.async` pipeline — each step measured against cuBLAS, placed on a roofline, validated against an fp64 reference, and explained.  Plus the kernels that surround GEMM in a transformer layer: split-K and batched GEMM, GEMV, deterministic reductions, online softmax and a bank-conflict-free transpose.**
 
-[![CI](https://github.com/sanjaybharvad007/cuda-gemm-optimization/actions/workflows/ci.yml/badge.svg)](https://github.com/sanjaybharvad007/cuda-gemm-optimization/actions/workflows/ci.yml)
-[![GPU](https://github.com/sanjaybharvad007/cuda-gemm-optimization/actions/workflows/gpu.yml/badge.svg)](https://github.com/sanjaybharvad007/cuda-gemm-optimization/actions/workflows/gpu.yml)
+[![CI](https://github.com/sanjaybharvad007/gpu-gemm-optimization/actions/workflows/ci.yml/badge.svg)](https://github.com/sanjaybharvad007/gpu-gemm-optimization/actions/workflows/ci.yml)
+[![GPU](https://github.com/sanjaybharvad007/gpu-gemm-optimization/actions/workflows/gpu.yml/badge.svg)](https://github.com/sanjaybharvad007/gpu-gemm-optimization/actions/workflows/gpu.yml)
 ![CUDA](https://img.shields.io/badge/CUDA-12.x%20%7C%20sm__80%2B-76B900)
 ![cuBLAS](https://img.shields.io/badge/cuBLAS-reference-76B900)
 ![Tensor Cores](https://img.shields.io/badge/Tensor%20Cores-WMMA%20%7C%20mma.sync-76B900)
